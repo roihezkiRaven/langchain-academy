@@ -52,16 +52,20 @@ Briefly going over how to set up environment variables. You can also
 use a `.env` file with `python-dotenv` library.
 #### Mac/Linux/WSL
 ```
-$ export API_ENV_VAR="your-api-key-here"
+$ export GOOGLE_API_KEY="your-google-api-key-here"
+$ export LANGCHAIN_API_KEY="your-langchain-api-key-here"
+$ export LANGCHAIN_TRACING_V2="true"
 ```
 #### Windows Powershell
 ```
-PS> $env:API_ENV_VAR = "your-api-key-here"
+PS> $env:GOOGLE_API_KEY = "your-google-api-key-here"
+PS> $env:LANGCHAIN_API_KEY = "your-langchain-api-key-here"
+PS> $env:LANGCHAIN_TRACING_V2 = "true"
 ```
 
-### Set OpenAI API key
-* If you don't have an OpenAI API key, you can sign up [here](https://openai.com/index/openai-api/).
-*  Set `OPENAI_API_KEY` in your environment 
+### Set Google API key
+* If you don't have a Google API key, you can get one from [Google AI Studio](https://makersuite.google.com/app/apikey).
+*  Set `GOOGLE_API_KEY` in your environment 
 
 ### Sign up and Set LangSmith API
 * Sign up for LangSmith [here](https://smith.langchain.com/), find out more about LangSmith
@@ -102,8 +106,9 @@ Open your browser and navigate to the Studio UI: `https://smith.langchain.com/st
 * Run this from the command line to create these files for module 1 to 6, as an example:
 ```
 for i in {1..6}; do
-  cp module-$i/studio/.env.example module-$i/studio/.env
-  echo "OPENAI_API_KEY=\"$OPENAI_API_KEY\"" > module-$i/studio/.env
+  echo "GOOGLE_API_KEY=\"$GOOGLE_API_KEY\"" > module-$i/studio/.env
+  echo "LANGCHAIN_API_KEY=\"$LANGCHAIN_API_KEY\"" >> module-$i/studio/.env
+  echo "LANGCHAIN_TRACING_V2=true" >> module-$i/studio/.env
 done
 echo "TAVILY_API_KEY=\"$TAVILY_API_KEY\"" >> module-4/studio/.env
 ```
