@@ -6,14 +6,16 @@ from typing_extensions import TypedDict
 from langchain_community.document_loaders import WikipediaLoader
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, get_buffer_string
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from langgraph.constants import Send
 from langgraph.graph import END, MessagesState, START, StateGraph
 
 ### LLM
 
-llm = ChatOpenAI(model="gpt-4o", temperature=0) 
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-lite", temperature=0) 
+llm2 = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0) 
+llm3 = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0) 
 
 ### Schema 
 
@@ -162,7 +164,7 @@ def search_web(state: InterviewState):
     tavily_search = TavilySearchResults(max_results=3)
 
     # Search query
-    structured_llm = llm.with_structured_output(SearchQuery)
+    structured_llm = llm2.with_structured_output(SearchQuery)
     search_query = structured_llm.invoke([search_instructions]+state['messages'])
     
     # Search
@@ -183,7 +185,7 @@ def search_wikipedia(state: InterviewState):
     """ Retrieve docs from wikipedia """
 
     # Search query
-    structured_llm = llm.with_structured_output(SearchQuery)
+    structured_llm = llm3.with_structured_output(SearchQuery)
     search_query = structured_llm.invoke([search_instructions]+state['messages'])
     
     # Search
